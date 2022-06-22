@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_21_224006) do
+ActiveRecord::Schema.define(version: 2022_06_22_003615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,8 +101,10 @@ ActiveRecord::Schema.define(version: 2022_06_21_224006) do
     t.string "unconfirmed_email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["group_id"], name: "index_users_on_group_id"
     t.index ["name"], name: "index_users_on_name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["surname"], name: "index_users_on_surname"
@@ -116,4 +118,5 @@ ActiveRecord::Schema.define(version: 2022_06_21_224006) do
   add_foreign_key "questions", "modul_questions"
   add_foreign_key "results", "missions"
   add_foreign_key "results", "users"
+  add_foreign_key "users", "groups"
 end
