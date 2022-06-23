@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_003615) do
+ActiveRecord::Schema.define(version: 2022_06_22_202128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_003615) do
   create_table "group_missions", force: :cascade do |t|
     t.bigint "group_id", null: false, comment: "Группа"
     t.bigint "mission_id", null: false, comment: "Тест"
-    t.string "grade", null: false, comment: "Вкл/Выкл"
+    t.string "enabled", null: false, comment: "Вкл/Выкл"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_group_missions_on_group_id"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 2022_06_22_003615) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "mission_modul_questions", force: :cascade do |t|
+    t.bigint "modul_question_id", null: false, comment: "Модуль вопросов"
+    t.bigint "mission_id", null: false, comment: "Тест"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mission_id"], name: "index_mission_modul_questions_on_mission_id"
+    t.index ["modul_question_id"], name: "index_mission_modul_questions_on_modul_question_id"
+  end
+
   create_table "missions", force: :cascade do |t|
     t.string "title", comment: "Название теста"
     t.boolean "enabled", default: false, comment: "Включен/выключен тест"
@@ -48,11 +57,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_003615) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_missions_on_user_id"
-  end
-
-  create_table "missions_modul_questions", id: false, force: :cascade do |t|
-    t.bigint "mission_id", null: false
-    t.bigint "modul_question_id", null: false
   end
 
   create_table "modul_questions", force: :cascade do |t|
@@ -85,6 +89,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_003615) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.bigint "group_id", default: 1
     t.string "name", comment: "Имя пользователя"
     t.string "surname", comment: "Фамилия пользователя"
     t.string "phone", comment: "Номер телефона"
@@ -101,7 +106,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_003615) do
     t.string "unconfirmed_email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "group_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["group_id"], name: "index_users_on_group_id"
@@ -113,6 +117,8 @@ ActiveRecord::Schema.define(version: 2022_06_22_003615) do
   add_foreign_key "answers", "questions"
   add_foreign_key "group_missions", "groups"
   add_foreign_key "group_missions", "missions"
+  add_foreign_key "mission_modul_questions", "missions"
+  add_foreign_key "mission_modul_questions", "modul_questions"
   add_foreign_key "missions", "users"
   add_foreign_key "modul_questions", "users"
   add_foreign_key "questions", "modul_questions"

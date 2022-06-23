@@ -5,7 +5,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
     create_table :users do |t|
       ## Database authenticatable
 
-
+      t.references :group,  default: 1, foreign_key: true
       t.string :name,                                       comment: "Имя пользователя"
       t.string :surname,                                    comment: "Фамилия пользователя"
       t.string :phone,                                      comment: "Номер телефона"

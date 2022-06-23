@@ -20,12 +20,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
 
-
-
-
-
-   before_action :configure_sign_up_params, only: [:create]
-   before_action :configure_account_update_params, only: [:update]
+  #before_action :configure_sign_up_params, only: [:create]
+  # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -34,14 +30,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-     super
-     redirect_to :fill_profile
+    super
+
    end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+   def edit
+     @title_group_all = Group.all
+     @current_user = current_user
+     @group =@current_user.group
+     @article = Group.new
+     super
+   end
 
   # PUT /resource
   # def update
@@ -65,17 +65,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-   def configure_sign_up_params
-     binding.pry
+  # def configure_sign_up_params
+     #   binding.pry
      #devise_parameter_sanitizer.permit(:sign_up, keys: [:group])
-     params.require(:user).permit(:group).to_h["group"].to_i
-   end
+     # params.require(:user).permit(:group).to_h["group"].to_i
+     # end
 
   # If you have extra params to permit, append them to the sanitizer.
-   def configure_account_update_params
+  #def configure_account_update_params
      #devise_parameter_sanitizer.permit(:account_update, keys: [:group])
-     params.require(:user).permit(:group).to_h["group"].to_i
-   end
+  # params.require(:user).permit(:group).to_h["group"].to_i
+  #end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

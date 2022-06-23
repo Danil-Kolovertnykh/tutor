@@ -15,6 +15,8 @@ class ModulQuestion < ApplicationRecord
 
   has_many :questions
 
-  has_and_belongs_to_many :mission
+
+  has_many :mission_modul_questions
+  has_many :missions, through: :mission_modul_questions
 
 end

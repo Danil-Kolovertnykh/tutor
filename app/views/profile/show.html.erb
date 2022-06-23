@@ -1,0 +1,18 @@
+<%=  render partial: "blocks/header"  %>
+
+
+<h2><%= @user.name %></h2>
+<h2>Тесты</h2>
+<% @group_missions.each do |group_mission|  %>
+  <% mission= group_mission.mission %>
+  <h1> <%= mission.title %></h1>
+  <p class="fs-5 col-md-8"> <%= mission.title %></p>
+  <div class="mb-5">
+    <a href= <%=mission_path(mission.id) %> , class="btn btn-primary btn-lg px-4">Пройти тест</a>
+  </div>
+
+
+<% end %>
+
+
+

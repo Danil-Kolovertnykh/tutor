@@ -3,17 +3,23 @@
     <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
     <span class="fs-4">Cистема тестирования знаний</span>
   </a>
-
+  <% if current_user.present? # new_user_session %>
   <ul class="nav nav-pills">
-    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Дом</a></li>
-    <li class="nav-item"><a href="#" class="nav-link">Мой профиль</a></li>
-
+    <% if params["controller"] == "profile"%>
+    <li class="nav-item"><a href= <%= root_path %> class="nav-link" aria-current="page">Тесты</a></li>
+    <li class="nav-item"><a href=<%= edit_user_registration_path%> class="nav-link active">Мой профиль</a></li>
+      <% else %>
+      <li class="nav-item"><a href= <%= root_path%> class="nav-link active" aria-current="page">Тесты</a></li>
+      <li class="nav-item"><a href=<%= edit_user_registration_path%> class="nav-link ">Мой профиль</a></li>
+    <% end %>
+  <%end %>
   </ul>
   <div class="col-md-3 text-end">
-      <% if @current_user.present? # new_user_session %>
-      <button type="button" class="btn btn-primary">Войти</button>
-      <% else  # cancel_user_registration%>
-      <button type="button" class="btn btn-primary">Выйти</button>
+      <% if current_user.present? # new_user_session %>
+
+        <button type="button" class="btn btn-outline-primary me-2">Выйти</button>
+
+
       <% end %>
   </div>
 </header>

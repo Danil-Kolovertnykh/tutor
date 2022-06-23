@@ -20,5 +20,6 @@ class Mission < ApplicationRecord
 
   belongs_to :user
 
-  has_and_belongs_to_many :module_questions
+  has_many :mission_modul_questions
+  has_many :modul_questions, through: :mission_modul_questions
 end

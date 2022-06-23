@@ -1,0 +1,60 @@
+  <%=  render partial: "blocks/header"  %>
+    <section class=" text-center container">
+      <div class="py-lg">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light"><%= @mission.title %></h1>
+          <p class="lead text-muted"><%= @mission.instruction %></p>
+        </div>
+      </div>
+    </section>
+    <% @number_modul = 0 %>
+    <%  @modul_questions.each do |modul_question| %>
+        <%  @number_modul = @number_modul +1 %>
+
+          <div class="r py-lg">
+            <div class="col-lg-6 col-md-8 mx-auto">
+              <h1 class="fw-light">Модуль <%=@number_modul%>. <%= modul_question.title %></h1>
+              <p class="lead text-muted"><%= modul_question.instruction %></p>
+            </div>
+          </div>
+
+        <% @number_question = 0 %>
+        <%  modul_question.questions.each do |question| %>
+            <% @number_question = @number_question +1 %>
+            <%= form_with url: mission_path do |f| %>
+                <div class="d-flex gap-5 justify-content-center">
+                     <div class="list-group mx-0 w-50">
+                       <% if  question.type_question == "Закрытой формы"%>
+                        <span>
+                         <%= question.value %>
+                          <small class="d-block text-muted">Выберите один правильный ответ</small>
+                        </span>
+                        <%  question.answers.each do |answer| %>
+                            <div class="list-group-item d-flex gap-2">
+                            <%= f.radio_button :answer, answer.id %>
+                            <%= f.label  answer.value %>
+                             </div>
+                        <% end %>
+
+                       <% elsif question.type_question == "Открытой формы"%>
+                       <span>
+                         <%= question.value %>
+                         <small class="d-block text-muted">Подробо распшите ответ</small>
+                        </span>
+                               <%= form_with url: mission_path do |f| %>
+                                 <div class="col-md-5 offset-md-1 mb-3">
+                                   <form>
+                                     <div class="d-flex flex-column flex-sm-row w-300 gap-2">
+                                       <label for="newsletter1" class="visually-hidden">Подробно опишите ваш ответ</label>
+                                       <input id="newsletter1" type="text" class="form-control" placeholder="Подробно опишите ваш ответ">
+                                     </div>
+                                   </form>
+                                 </div>
+                               <% end %>
+                       <% end %>
+
+                     </div>
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
