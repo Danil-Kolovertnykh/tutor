@@ -5,6 +5,6 @@ class MissionsController < ApplicationController
   end
 
   def result
-
+    binding.pry
   end
 end

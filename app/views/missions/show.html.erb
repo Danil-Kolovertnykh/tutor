@@ -21,9 +21,10 @@
         <% @number_question = 0 %>
         <%  modul_question.questions.each do |question| %>
             <% @number_question = @number_question +1 %>
-            <%= form_with url: mission_path do |f| %>
+            <%= form_with url: result_path do |f| %>
                 <div class="d-flex gap-5 justify-content-center">
                      <div class="list-group mx-0 w-50">
+
                        <% if  question.type_question == "Закрытой формы"%>
                         <span>
                          <%= question.value %>
@@ -54,6 +55,9 @@
                        <% end %>
 
                      </div>
+                </div>
+                <div class="actions">
+                  <%= f.submit "Update", :class=>"btn btn-primary btn-lg px-4 me-sm-3" %>
                 </div>
             <% end %>
         <% end %>

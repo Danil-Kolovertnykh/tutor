@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_202128) do
   create_table "group_missions", force: :cascade do |t|
     t.bigint "group_id", null: false, comment: "Группа"
     t.bigint "mission_id", null: false, comment: "Тест"
-    t.string "enabled", null: false, comment: "Вкл/Выкл"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_group_missions_on_group_id"
@@ -72,7 +71,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_202128) do
     t.bigint "modul_question_id", null: false, comment: "К какому модулю вопросов"
     t.string "value", null: false, comment: "Вопрос"
     t.string "type_question", null: false, comment: "Тип вопроса"
-    t.integer "right_answer_id", null: false
+    t.string "right_answer", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["modul_question_id"], name: "index_questions_on_modul_question_id"

@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.8'
 
-
+gem 'rails_admin', '~> 3.0'
 gem "shrine"
 gem 'devise'
 #Аннотация в моделях ии тд
