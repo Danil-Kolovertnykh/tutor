@@ -8,7 +8,7 @@
       </div>
     </section>
     <% @number_modul = 0 %>
-  <%= form_with url: result_path do |f| %>
+
     <%  @modul_questions.each do |modul_question| %>
         <%  @number_modul = @number_modul +1 %>
 
@@ -25,47 +25,79 @@
 
                 <div class="d-flex gap-5 justify-content-center">
                      <div class="list-group mx-0 w-50">
+                       <%= form_with url: result_path do |f| %>
+                           <% if  question.type_question == "Закрытой формы"  %>
+                            <span>
+                              <input type="hidden" name="type_question" value= <%= question.type_question %>>
+                              <input type="hidden" name="question_id" value= <%= question.id %>>
+                             <%= question.value %>
+                              <small class="d-block text-muted">Выберите один правильный ответ</small>
+                            </span>
+                            <%  question.answers.each do |answer| %>
+                                <div class="list-group-item d-flex gap-2">
 
-                       <% if  question.type_question == "Закрытой формы" || question.type_question == "Закрытой формы >1" %>
-                        <span>
-                          <input type="hidden" name="type_question" value= <%= question.type_question %>>
-                          <input type="hidden" name="type" value= <%= question.id %>>
-                         <%= question.value %>
-                          <% if question.type_question == "Закрытой формы" %>
-                          <small class="d-block text-muted">Выберите один правильный ответ</small>
-                            <% else %>
-                          <small class="d-block text-muted">Выберите несколько правильных ответов</small>
+                                <%= f.radio_button :answer, answer.id %>
+                                <%= f.label  answer.value %>
+                                 </div>
                             <% end %>
-                        </span>
-                        <%  question.answers.each do |answer| %>
+
+                           <% elsif question.type_question == "Открытой формы"%>
+                           <span>
+                             <%= question.value %>
+                             <small class="d-block text-muted">Дайте развернутый ответ</small>
+                            </span>
+
                             <div class="list-group-item d-flex gap-2">
-
-                            <%= f.radio_button :answer, answer.id %>
-                            <%= f.label  answer.value %>
+                              <%= f.text_field :answer %>
+                              <%= f.label  "Подробно опишите ваш ответ" %>
+                              <input type="hidden" name="type_question" value= <%= question.type_question %>>
+                              <input type="hidden" name="question_id" value= <%= question.id %>>
                              </div>
-                        <% end %>
+                             <% elsif question.type_question == "Закрытой формы >1"%>
 
-                       <% elsif question.type_question == "Открытой формы"%>
-                       <span>
-                         <%= question.value %>
-                         <small class="d-block text-muted">Дайте развернутый ответ</small>
-                        </span>
 
-                        <div class="list-group-item d-flex gap-2">
-                          <%= f.text_field :answer %>
-                          <%= f.label  "Подробно опишите ваш ответ" %>
-                          <input type="hidden" name="type_question" value= <%= question.type_question %>>
-                          <input type="hidden" name="type" value= <%= question.id %>>
+
+
+
+
+
+
+                           <span>
+                              <input type="hidden" name="type_question" value= <%= question.type_question %>>
+                              <input type="hidden" name="question_id" value= <%= question.id %>>
+
+                             <%= question.value %>
+                             <small class="d-block text-muted">Выберите несколько правильных ответов</small>
+                            </span>
+                           <%  question.answers.each do |answer| %>
+                             <div class="list-group-item d-flex gap-2">
+                               <input type="hidden" name="" value= <%= question.type_question %>>
+                               <%= f.check_box  answer.id %>
+                               <%= f.label  answer.value %>
+                             </div>
+                           <% end %>
+
+
+
+
+
+
+
+
+
+
+                           <% end %>
+
+
+
+                         <div class="actions">
+                           <%= f.submit "Ответить", :class=>"btn btn-primary btn-lg px-4 me-sm-3" %>
                          </div>
-
                        <% end %>
 
                      </div>
                 </div>
 
             <% end %>
-      <div class="actions">
-        <%= f.submit "Ответить", :class=>"btn btn-primary btn-lg px-4 me-sm-3" %>
-      </div>
-        <% end %>
+
     <% end %>

@@ -1,18 +1,31 @@
 <%=  render partial: "blocks/header"  %>
 
 
-<h2><%= @user.name %></h2>
+    <h2><%= @user.name %></h2>
 
-<% @group_missions.each do |group_mission|  %>
-  <% mission= group_mission.mission %>
-  <h1> <%= mission.title %></h1>
-  <p class="fs-5 col-md-8"> <%= mission.title %></p>
-  <div class="mb-5">
-    <a href= <%=mission_path(mission.id) %> , class="btn btn-primary btn-lg px-4">Пройти тест</a>
-  </div>
+    <% @group_missions.each do |group_mission|  %>
+              <% mission= group_mission.mission %>
+              <h1> <%= mission.title %></h1>
+              <p class="fs-5 col-md-8"> <%= mission.instruction %></p>
+              <%  unless @missions_completed_id.include? mission.id %>
+                  <div class="mb-5">
+                     <a href= <%=mission_path(mission.id) %> , class="btn btn-primary btn-lg px-4">Пройти тест</a>
+                  </div>
+              <% else %>
+
+                  <% if @user.results.find_by(mission_id: 4).grade.nil? %>
+                  <div class="card-body">
+                    <p class="card-text">Вы уже выполнили данныое задание. Ожидайте проверки преподавателя </p>
+                  </div>
+                  <% else %>
+                    <div class="card-body">
+                      <p class="card-text">Вы уже выполнили данныое задание. Ваша оценка: <%= @user.results.find_by(mission_id: 4).grade %> </p>
+                    </div>
+                  <% end %>
 
 
-<% end %>
+              <% end %>
 
+    <% end %>
 
 

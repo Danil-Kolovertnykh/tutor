@@ -5,7 +5,8 @@
   </a>
   <% if current_user.present? # new_user_session %>
   <ul class="nav nav-pills">
-    <% if params["controller"] == "profile"%>
+
+    <% if params["controller"] == "profile" || params["controller"] =="missions"%>
     <li class="nav-item"><a href= <%= root_path %> class="nav-link active" aria-current="page">Тесты</a></li>
     <li class="nav-item"><a href=<%= edit_user_registration_path%> class="nav-link">Мой профиль</a></li>
       <% else %>
