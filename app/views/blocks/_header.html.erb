@@ -16,8 +16,10 @@
   </ul>
   <div class="col-md-3 text-end">
       <% if current_user.present? # new_user_session %>
+      <%= form_with url: destroy_user_session_path, html: { method: :delete } do |f| %>
+        <%= f.submit "Выйти", :class=>"btn btn-outline-primary me-2" %>
 
-        <button type="button" class="btn btn-outline-primary me-2">Выйти</button>
+        <% end %>
 
 
       <% end %>

@@ -4,6 +4,9 @@ class ProfileController < ApplicationController
       @user = current_user
       @group_missions = @user.group.group_missions
       @results = @user.results
-    end
+  end
+
+
+
   end
 

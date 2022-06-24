@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_202128) do
+ActiveRecord::Schema.define(version: 2022_06_24_142626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,16 +71,28 @@ ActiveRecord::Schema.define(version: 2022_06_22_202128) do
     t.bigint "modul_question_id", null: false, comment: "К какому модулю вопросов"
     t.string "value", null: false, comment: "Вопрос"
     t.string "type_question", null: false, comment: "Тип вопроса"
-    t.string "right_answer", null: false
+    t.string "right_answer", comment: "Правильный ответ"
+    t.integer "mark", comment: "Максимальная оценка"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["modul_question_id"], name: "index_questions_on_modul_question_id"
   end
 
+  create_table "replies", force: :cascade do |t|
+    t.bigint "result_id", null: false, comment: "Результат"
+    t.bigint "question_id", null: false, comment: "Тест"
+    t.string "user_answer", null: false, comment: "Ответ пользователя"
+    t.integer "mark", comment: "Оценка"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_replies_on_question_id"
+    t.index ["result_id"], name: "index_replies_on_result_id"
+  end
+
   create_table "results", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "Пользователь"
     t.bigint "mission_id", null: false, comment: "Тест"
-    t.string "grade", null: false, comment: "Оценка"
+    t.string "grade", comment: "Оценка"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["mission_id"], name: "index_results_on_mission_id"
@@ -121,6 +133,8 @@ ActiveRecord::Schema.define(version: 2022_06_22_202128) do
   add_foreign_key "missions", "users"
   add_foreign_key "modul_questions", "users"
   add_foreign_key "questions", "modul_questions"
+  add_foreign_key "replies", "questions"
+  add_foreign_key "replies", "results"
   add_foreign_key "results", "missions"
   add_foreign_key "results", "users"
   add_foreign_key "users", "groups"

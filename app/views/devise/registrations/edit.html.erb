@@ -1,5 +1,5 @@
-<%=  render partial: "blocks/header"  %>
 
+<%=  render partial: "blocks/header"  %>
 <h2>Введите свои данные</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -9,10 +9,9 @@
 
   <div class="col-md-5">
     <label for="group" class="group">Группа</label>
-    <select class="form-select" id="group" >
-      <% @title_group_all.each do |group| %>
-      <option value= <%= group.id %>><%= group.title %></option>
-      <% end %>
+    <select class="form-select" id="group_id" >
+      <option value= "2">КСм-20 </option>
+      <option value= "3">ПОм-20 </option>
     </select>
 
   </div>
@@ -29,7 +28,10 @@
     <%= f.label "Ваша почта" %><br />
     <%= f.email_field :email, :class =>"form-control", autofocus: true, autocomplete: "Email" %>
   </div>
-
+  <div class="col-md-5">
+    <%= f.label "Номер телефон", :class=>"form-label" %><br />
+    <%= f.text_field :phone, :class =>"form-control", autofocus: true, autocomplete: "Номер телефона" %>
+  </div>
 
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
