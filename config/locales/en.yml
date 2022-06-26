@@ -30,4 +30,52 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      answer:
+        one: Ответ
+        other: Ответы
+      question:
+        one: Вопрос
+        other: Вопросы
+      group:
+        one: Группа
+        other: Группы
+      mission_modul_question:
+        one: Модуль вопросов
+        other: Модули вопросов
+      user:
+        one: Пользователь
+        other: Пользователи
+      result:
+        one: Результат
+        other: Результаты
+      reply:
+        one: Ответ пользователя
+        other: Ответы пользователя
+      mission:
+        one: Задание
+        other: Задания
+    attributes:
+      question:
+          modul_question_id: Модуль вопроса
+          value: Вопрос
+          type_question: Тип вопроса
+          right_answer_id: ID правильного ответа
+      group:
+          title: Группа
+          departament: Кафедра
+      mission:
+        title: Название теста
+        enabled: Включен
+        user: Автор теста
+        instruction: Инструкция
+        created_at: Дата создания
+        updated_at: Дата последнего обновления
+      reply:
+        result: Результат
+        question: Вопрос
+        user_answer: Ответ пользователя
+        mark: Оценка
+        created_at: Дата создания
+        updated_at: Дата последнего обновления

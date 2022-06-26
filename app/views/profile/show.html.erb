@@ -1,7 +1,6 @@
 <%=  render partial: "blocks/header"  %>
 
 
-    <h2><%= @user.name %></h2>
 
     <% @group_missions.each do |group_mission|  %>
               <% mission= group_mission.mission %>
@@ -12,16 +11,15 @@
                      <a href= <%=mission_path(mission.id) %> , class="btn btn-primary btn-lg px-4">Пройти тест</a>
                   </div>
               <% else %>
-
-                  <% if @user.results.find_by(mission_id: 4).grade.nil? %>
-                  <div class="card-body">
-                    <p class="card-text">Вы уже выполнили данныое задание. Ожидайте проверки преподавателя </p>
-                  </div>
-                  <% else %>
+                    <% if @user.results.find_by(mission_id: mission.id).grade.nil? %>
                     <div class="card-body">
-                      <p class="card-text">Вы уже выполнили данныое задание. Ваша оценка: <%= @user.results.find_by(mission_id: 4).grade %> </p>
+                      <p class="fs-5 col-md-8">Вы уже выполнили данныое задание. Ожидайте проверки преподавателя </p>
                     </div>
-                  <% end %>
+                    <% else %>
+                      <div class="card-body">
+                        <p class="fs-5 col-md-8t">Вы уже выполнили данное задание. Ваша оценка: <%= @user.results.find_by(mission_id: mission.id).grade %> </p>
+                      </div>
+                    <% end %>
 
 
               <% end %>

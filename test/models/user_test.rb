@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  group_id               :bigint           default(1)
 #  name                   :string
 #  surname                :string
 #  phone                  :string
@@ -19,7 +20,6 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  group_id               :bigint
 #
 require "test_helper"
 

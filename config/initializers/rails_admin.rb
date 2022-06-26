@@ -35,6 +35,8 @@ RailsAdmin.config do |config|
     delete
     show_in_app
 
+
+    config.main_app_name = ['Панель управления', 'системой тестирования знаний']
     ## With an audit adapter, you can add:
     # history_index
     # history_show

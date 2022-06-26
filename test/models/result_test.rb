@@ -5,7 +5,7 @@
 #  id         :bigint           not null, primary key
 #  user_id    :bigint           not null
 #  mission_id :bigint           not null
-#  grade      :string           not null
+#  grade      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

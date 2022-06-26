@@ -22,4 +22,9 @@ class Mission < ApplicationRecord
 
   has_many :mission_modul_questions
   has_many :modul_questions, through: :mission_modul_questions
+
+  rails_admin do
+    exclude_fields :group_missions, :groups, :results,
+                   :users, :mission_modul_questions, :modul_questions
+  end
 end
