@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_24_142626) do
+ActiveRecord::Schema.define(version: 2022_06_21_223728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,29 +23,11 @@ ActiveRecord::Schema.define(version: 2022_06_24_142626) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "group_missions", force: :cascade do |t|
-    t.bigint "group_id", null: false, comment: "Группа"
-    t.bigint "mission_id", null: false, comment: "Тест"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["group_id"], name: "index_group_missions_on_group_id"
-    t.index ["mission_id"], name: "index_group_missions_on_mission_id"
-  end
-
   create_table "groups", force: :cascade do |t|
     t.string "title", null: false, comment: "Название группы"
     t.string "departament", comment: "Кафедра"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "mission_modul_questions", force: :cascade do |t|
-    t.bigint "modul_question_id", null: false, comment: "Модуль вопросов"
-    t.bigint "mission_id", null: false, comment: "Тест"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["mission_id"], name: "index_mission_modul_questions_on_mission_id"
-    t.index ["modul_question_id"], name: "index_mission_modul_questions_on_modul_question_id"
   end
 
   create_table "missions", force: :cascade do |t|
@@ -76,17 +58,6 @@ ActiveRecord::Schema.define(version: 2022_06_24_142626) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["modul_question_id"], name: "index_questions_on_modul_question_id"
-  end
-
-  create_table "replies", force: :cascade do |t|
-    t.bigint "result_id", null: false, comment: "Результат"
-    t.bigint "question_id", null: false, comment: "Тест"
-    t.string "user_answer", null: false, comment: "Ответ пользователя"
-    t.integer "mark", comment: "Оценка"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["question_id"], name: "index_replies_on_question_id"
-    t.index ["result_id"], name: "index_replies_on_result_id"
   end
 
   create_table "results", force: :cascade do |t|
@@ -126,15 +97,9 @@ ActiveRecord::Schema.define(version: 2022_06_24_142626) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "group_missions", "groups"
-  add_foreign_key "group_missions", "missions"
-  add_foreign_key "mission_modul_questions", "missions"
-  add_foreign_key "mission_modul_questions", "modul_questions"
   add_foreign_key "missions", "users"
   add_foreign_key "modul_questions", "users"
   add_foreign_key "questions", "modul_questions"
-  add_foreign_key "replies", "questions"
-  add_foreign_key "replies", "results"
   add_foreign_key "results", "missions"
   add_foreign_key "results", "users"
   add_foreign_key "users", "groups"

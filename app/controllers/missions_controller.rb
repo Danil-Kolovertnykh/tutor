@@ -11,7 +11,6 @@ class MissionsController < ApplicationController
   end
 
   def result
-    binding.pry
     question = Question.find(params["type"])
     if question.right_answer.present?
       question.right_answer == params["answer"]

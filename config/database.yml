@@ -2,7 +2,7 @@
   development:
     adapter: postgresql
     encoding: unicode
-    database: student_testing
+    database: tutor
     pool: 5
     host: 'localhost'
     username: postgres
